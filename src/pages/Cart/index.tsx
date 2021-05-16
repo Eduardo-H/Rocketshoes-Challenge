@@ -4,6 +4,7 @@ import {
   MdAddCircleOutline,
   MdRemoveCircleOutline,
 } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 import { useCart } from '../../hooks/useCart';
 import { formatPrice } from '../../util/format';
@@ -18,7 +19,12 @@ interface Product {
 }
 
 const Cart = (): JSX.Element => {
-    const { cart, removeProduct, updateProductAmount } = useCart();
+    const {
+        cart,
+        removeProduct,
+        updateProductAmount,
+        finishOrder
+    } = useCart();
 
     const cartFormatted = cart.map(product => ({
         ...product,
@@ -118,8 +124,10 @@ const Cart = (): JSX.Element => {
             </ProductTable>
 
             <footer>
-                <button type="button">Finalizar pedido</button>
-
+                <Link to="/">
+                    <button type="button" onClick={finishOrder}>Finalizar pedido</button>
+                </Link>
+                
                 <Total>
                     <span>TOTAL</span>
                     <strong>{total}</strong>

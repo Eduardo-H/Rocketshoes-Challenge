@@ -17,6 +17,7 @@ interface CartContextData {
     addProduct: (productId: number) => Promise<void>;
     removeProduct: (productId: number) => void;
     updateProductAmount: ({ productId, amount }: UpdateProductAmount) => void;
+    finishOrder: () => void;
 }
 
 const CartContext = createContext<CartContextData>({} as CartContextData);
@@ -117,9 +118,29 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
         }
     };
 
+    const finishOrder = () => {
+        if (cart.length === 0)
+            return;
+
+        try {
+            setCart([]);
+            localStorage.setItem('@RocketShoes:cart', JSON.stringify([]));
+
+            toast.success('Pedido finalizado com sucesso!');
+        } catch {
+            toast.error('Erro ao finalizar o pedido');
+        }
+    }
+
     return (
         <CartContext.Provider
-            value={{ cart, addProduct, removeProduct, updateProductAmount }}
+            value={{
+                cart, 
+                addProduct, 
+                removeProduct, 
+                updateProductAmount,
+                finishOrder
+            }}
         >
             {children}
         </CartContext.Provider>
