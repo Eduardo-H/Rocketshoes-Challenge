@@ -29,7 +29,7 @@ export const Container = styled.div`
     }
 
     @media (max-width:768px) {
-        overflow-x: auto;
+        padding: 20px 0px;
 
         footer {
             flex-direction: column;
@@ -40,6 +40,12 @@ export const Container = styled.div`
         }
     }
 `;
+
+export const TableContainer = styled.div`
+    @media (max-width:768px) {
+        overflow-x: auto;
+    }
+`
 
 export const ProductTable = styled.table`
     width: 100%;
